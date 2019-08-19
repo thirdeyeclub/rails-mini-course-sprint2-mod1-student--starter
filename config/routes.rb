@@ -4,6 +4,14 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :customers
       resources :products, only: [:index, :show]
+      resources :orders, only: [:index, :create, :ship, :show]
+      get 'orders' , to: 'orders#index'
+      get 'customers/:customer_id/orders', to: 'orders#index'
+      post 'customers/:customer_id/orders', to: 'orders#create'
+      get 'orders/:id', to: 'orders#show'
+      post 'orders/:id/ship', to: 'orders#ship'
+      get 'orders/:order_id/products', to: 'products#index'
+      post 'orders/:order_id/products', to: 'products#create'
     end
   end
 end
